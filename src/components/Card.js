@@ -1,12 +1,18 @@
 import React from 'react';
 import { getImageUrl } from '../../config';
 
+
+/*
+* Nespejau....
+*
+* */
 export default class Card extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       opened: false,
+      liked: this.props.like
     };
   }
 
@@ -16,6 +22,16 @@ export default class Card extends React.Component {
     this.setState({
       opened: !opened,
     });
+  };
+
+  changeLikeState = () => {
+      const { liked } = this.state;
+      this.setState({
+          liked: !liked,
+      });
+      const { movie: {id}, movieLikeStatusChangedCallback } = this.props;
+      movieLikeStatusChangedCallback(id, !liked);
+      alert(!liked);
   };
 
   render() {
@@ -29,8 +45,7 @@ export default class Card extends React.Component {
         vote_count,
       },
     } = this.props;
-    const { opened } = this.state;
-
+    const { opened, liked } = this.state;
     return (
       <div className="card">
         <div
@@ -43,7 +58,7 @@ export default class Card extends React.Component {
         </div>
 
         <div className="card__like">
-          <i className="fa fa-heart-o" />
+          <i className="fa fa-heart-o" onClick={this.changeLikeState}/>
         </div>
 
         <div className="card__subtitle">

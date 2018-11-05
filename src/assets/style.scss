@@ -48,9 +48,15 @@ body {
   margin: 10px 30px;
   cursor: pointer;
   text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+}
+
+.genre:hover{
+  border-bottom-color: #fff;
 }
 
 .cards {
+  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
