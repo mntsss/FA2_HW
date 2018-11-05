@@ -2,10 +2,6 @@ import React from 'react';
 import { getImageUrl } from '../../config';
 
 
-/*
-* Nespejau....
-*
-* */
 export default class Card extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +10,15 @@ export default class Card extends React.Component {
       opened: false,
       liked: this.props.like
     };
+
+  }
+
+  componentWillReceiveProps(nextProps){
+      if(nextProps.like !== this.state.liked){
+          this.setState({
+              liked: nextProps.like
+          });
+      }
   }
 
   toggleSummary = () => {
@@ -31,7 +36,6 @@ export default class Card extends React.Component {
       });
       const { movie: {id}, movieLikeStatusChangedCallback } = this.props;
       movieLikeStatusChangedCallback(id, !liked);
-      alert(!liked);
   };
 
   render() {
@@ -58,7 +62,7 @@ export default class Card extends React.Component {
         </div>
 
         <div className="card__like">
-          <i className="fa fa-heart-o" onClick={this.changeLikeState}/>
+          <i className={liked ? "fa fa-heart" : "fa fa-heart-o"}  onClick={this.changeLikeState}/>
         </div>
 
         <div className="card__subtitle">
